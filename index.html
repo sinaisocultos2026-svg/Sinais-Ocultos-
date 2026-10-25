@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sinais Ocultos — Reflexão sobre Relacionamentos</title>
+<meta name="description" content="Sinais Ocultos: testes de reflexão sobre relacionamentos com resultados personalizados, gráficos e dicas. Privacidade em primeiro lugar.">
+<style>
+:root{
+  --bg:#0a0a0c; --bg2:#101014; --card:#141418; --card2:#1a151c;
+  --red:#a81c2e; --red-dark:#7a1220; --pink:#ff5f8f; --pink-soft:#ff8fb0;
+  --white:#f5f2f4; --muted:#b8aeb5; --line:rgba(255,95,143,.16);
+  --ok:#2fbf71; --err:#ff5f6d;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+  background:
+  linear-gradient(rgba(10,10,12,.78), rgba(10,10,12,.88)),
+  url("Romance Carmesim sobre Fundo Sombrio.png") center center / cover no-repeat fixed;
+  color:var(--white); min-height:100vh; line-height:1.6;
+}
+a{color:var(--pink-soft)}
+.wrap{max-width:1020px;margin:0 auto;padding:26px 18px 120px}
+h1{font-size:clamp(1.8rem,5.5vw,2.7rem);line-height:1.15;font-weight:800}
+h1 .accent,h2 .accent{background:linear-gradient(120deg,var(--red),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:clamp(1.35rem,4vw,1.9rem);font-weight:800;margin-bottom:8px}
+.sub{color:var(--muted);max-width:620px}
+.section{margin-top:44px}
+
+/* ===== Header / Menu ===== */
+header.site{position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);background:rgba(10,10,12,.86);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 18px;position:relative}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--white);font-weight:800;letter-spacing:.06em}
+.logo svg{filter:drop-shadow(0 0 8px rgba(255,95,143,.6))}
+.logo small{display:block;font-size:.62rem;color:var(--muted);letter-spacing:.22em;text-transform:uppercase;font-weight:600}
+nav.menu{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+nav.menu a{color:var(--muted);text-decoration:none;padding:9px 13px;border-radius:10px;font-weight:600;font-size:.9rem;white-space:nowrap;transition:.15s}
+nav.menu a:hover,nav.menu a.active{color:#fff;background:rgba(255,95,143,.12)}
+nav.menu a.btn-wa{background:linear-gradient(120deg,#1f9e54,#2fd071);color:#fff;margin-left:6px}
+.hamburger{display:none;background:none;border:1px solid var(--line);border-radius:10px;padding:9px 11px;cursor:pointer}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white);margin:5px 0;border-radius:2px}
+@media(max-width:960px){
+  .hamburger{display:block}
+  nav.menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;background:#14101a;border-bottom:1px solid var(--line);padding:12px;gap:4px}
+  nav.menu.open{display:flex}
+  nav.menu a{padding:13px 16px}
+}
+
+/* ===== Cards ===== */
+.card{background:linear-gradient(160deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:18px;padding:clamp(20px,4.5vw,34px);box-shadow:0 18px 50px rgba(0,0,0,.4)}
+.card h2{margin-bottom:12px}
+.grid{display:grid;gap:16px}
+.grid.cols-2{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.tile{background:linear-gradient(160deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:16px;padding:22px;transition:.2s;text-decoration:none;color:var(--white);display:block}
+.tile:hover{transform:translateY(-4px);border-color:rgba(255,95,143,.5);box-shadow:0 14px 34px rgba(168,28,46,.25)}
+.tile .tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--pink);font-weight:800;margin-bottom:8px}
+.tile p{color:var(--muted);font-size:.9rem;margin-top:6px}
+
+/* ===== Buttons ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:none;cursor:pointer;font:inherit;font-weight:700;border-radius:13px;padding:14px 24px;font-size:.98rem;text-decoration:none;width:100%;transition:.15s;color:var(--white)}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:linear-gradient(120deg,var(--red),var(--pink));box-shadow:0 10px 26px rgba(168,28,46,.35);color:#fff}
+.btn-primary:hover{box-shadow:0 12px 32px rgba(255,95,143,.4)}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,.15)}
+.btn-ghost:hover{color:#fff;border-color:rgba(255,255,255,.32)}
+.btn-whatsapp{background:#1f9e54;color:#fff}
+.btn-whatsapp:hover{background:#23b361}
+.btn-share{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16)}
+.btn-danger{background:rgba(255,95,109,.12);border:1px solid rgba(255,95,109,.4);color:#ff8f9a}
+.btn:disabled{opacity:.35;cursor:not-allowed;box-shadow:none}
+.btn-sm{padding:10px 16px;font-size:.88rem;width:auto}
+
+/* ===== Forms ===== */
+.field{margin-bottom:16px}
+.field label{display:block;font-size:.85rem;font-weight:700;color:var(--muted);margin-bottom:6px}
+.field input{width:100%;font:inherit;color:var(--white);background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.13);border-radius:12px;padding:14px 16px;transition:.15s}
+.field input:focus{outline:none;border-color:var(--pink);background:rgba(255,95,143,.06)}
+.field .hint{font-size:.78rem;color:var(--muted);margin-top:5px}
+.field .err-msg{font-size:.8rem;color:var(--err);margin-top:5px;display:none}
+.field.invalid input{border-color:var(--err)}
+.field.invalid .err-msg{display:block}
+.pw-wrap{position:relative}
+.pw-wrap input{padding-right:52px}
+.pw-toggle{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;padding:8px;font-size:1.05rem}
+.checkline{display:flex;gap:10px;align-items:flex-start;margin:14px 0;font-size:.86rem;color:var(--muted)}
+.checkline input{margin-top:4px;accent-color:var(--pink)}
+.alert{border-radius:12px;padding:13px 16px;font-size:.9rem;margin:14px 0;display:none}
+.alert.show{display:block}
+.alert-ok{background:rgba(47,191,113,.12);border:1px solid rgba(47,191,113,.4);color:#9fe8c0}
+.alert-err{background:rgba(255,95,109,.1);border:1px solid rgba(255,95,109,.4);color:#ffb3ba}
+.alert-info{background:rgba(255,95,143,.08);border:1px solid var(--line);color:var(--pink-soft)}
+.divider{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:.8rem;margin:22px 0}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.1)}
+
+/* ===== Quiz ===== */
+.progress-meta{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted);margin-bottom:10px;flex-wrap:wrap;gap:6px}
+.progress-track{height:8px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden;margin-bottom:16px}
+.progress-fill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--red),var(--pink));transition:width .45s cubic-bezier(.4,0,.2,1)}
+.dots{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+.dots button{width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(255,255,255,.25);background:transparent;cursor:pointer;padding:0;transition:.15s}
+.dots button.done{background:var(--pink);border-color:var(--pink)}
+.dots button.current{box-shadow:0 0 0 3px rgba(255,95,143,.35);border-color:var(--pink)}
+.q-cat{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--pink);font-weight:800;margin-bottom:8px}
+.q-text{font-size:clamp(1.1rem,4.2vw,1.35rem);font-weight:700;line-height:1.4;margin-bottom:22px}
+.options{display:grid;gap:11px}
+.option{width:100%;text-align:left;font:inherit;font-size:.97rem;font-weight:600;color:var(--white);background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.12);border-radius:13px;padding:16px 16px 16px 50px;cursor:pointer;position:relative;min-height:54px;transition:.15s}
+.option:hover{border-color:rgba(255,95,143,.5);background:rgba(255,95,143,.06)}
+.option .check{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:21px;height:21px;border-radius:50%;border:2px solid rgba(255,255,255,.3);transition:.15s}
+.option.selected{border-color:var(--pink);background:rgba(255,95,143,.12)}
+.option.selected .check{border-color:var(--pink);background:var(--pink);box-shadow:inset 0 0 0 4px var(--pink)}
+.nav-row{display:flex;gap:12px;margin-top:26px}
+.nav-row .btn{flex:1}
+
+/* ===== Result ===== */
+.result-hero{text-align:center}
+.score-big{font-size:clamp(2.8rem,13vw,4.4rem);font-weight:800;line-height:1;background:linear-gradient(120deg,var(--red),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.band-badge{display:inline-block;margin:16px 0 4px;padding:10px 22px;border-radius:99px;background:rgba(168,28,46,.18);border:1px solid rgba(255,95,143,.35);color:var(--pink-soft);font-weight:800;font-size:.95rem}
+.disclaimer{font-size:.85rem;color:var(--muted);background:rgba(255,255,255,.04);border-left:3px solid var(--pink);border-radius:8px;padding:12px 14px;margin:18px 0}
+.safety{background:rgba(255,95,109,.1);border:1px solid rgba(255,95,109,.45);border-radius:12px;padding:14px 16px;font-size:.9rem;color:#ffc9ce;margin:18px 0}
+.res-sec{margin-top:26px}
+.res-sec h3{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--pink);font-weight:800;margin-bottom:14px}
+.chart-box{background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px}
+.chart-box canvas{max-width:100%}
+.legend{font-size:.78rem;color:var(--muted);margin-top:10px}
+.olist{list-style:none;display:grid;gap:10px}
+.olist li{display:flex;gap:12px;background:rgba(255,95,143,.05);border:1px solid var(--line);border-radius:12px;padding:13px 15px;font-size:.92rem}
+.olist .n{flex:0 0 26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(120deg,var(--red),var(--pink));font-weight:800;font-size:.8rem}
+.plist{list-style:none;display:grid;gap:8px}
+.plist li{background:rgba(47,191,113,.06);border:1px solid rgba(47,191,113,.25);border-radius:10px;padding:10px 14px;font-size:.9rem}
+ul.tick{padding-left:2px;list-style:none;display:grid;gap:8px}
+ul.tick li{padding-left:26px;position:relative;font-size:.93rem;color:#e6dfe4}
+ul.tick li::before{content:"";position:absolute;left:2px;top:8px;width:12px;height:12px;border-radius:50%;background:linear-gradient(120deg,var(--red),var(--pink))}
+.actions-grid{display:grid;gap:10px;margin-top:30px}
+.chart-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+
+/* ===== Account ===== */
+.profile-row{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:.93rem}
+.profile-row span:first-child{color:var(--muted)}
+.hist-item{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.hist-item .top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+.hist-item small{color:var(--muted)}
+.badge{font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:99px;background:rgba(255,95,143,.12);border:1px solid var(--line);color:var(--pink-soft)}
+
+/* ===== Modal / toast ===== */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:80;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-bg.open{display:flex}
+.modal{background:var(--card2);border:1px solid var(--line);border-radius:16px;padding:26px;max-width:420px;width:100%;animation:fadeIn .25s ease both}
+.modal h3{margin-bottom:10px}
+.modal p{color:var(--muted);font-size:.92rem;margin-bottom:20px}
+.modal .row{display:flex;gap:10px}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:#221a20;border:1px solid var(--line);padding:12px 22px;border-radius:99px;font-size:.9rem;font-weight:600;opacity:0;pointer-events:none;transition:.3s;z-index:90;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ===== Floating WhatsApp ===== */
+.wa-float{position:fixed;right:18px;bottom:18px;z-index:50;width:58px;height:58px;border-radius:50%;background:#22c05c;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 28px rgba(34,192,92,.45);transition:.15s;animation:waPulse 2.6s infinite}
+.wa-float:hover{transform:scale(1.08)}
+@keyframes waPulse{0%{box-shadow:0 10px 28px rgba(34,192,92,.45),0 0 0 0 rgba(34,192,92,.4)}70%{box-shadow:0 10px 28px rgba(34,192,92,.45),0 0 0 16px rgba(34,192,92,0)}100%{box-shadow:0 10px 28px rgba(34,192,92,.45),0 0 0 0 rgba(34,192,92,0)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.screen-anim{animation:fadeIn .4s ease both}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:28px 18px;text-align:center;color:var(--muted);font-size:.8rem}
+.steps{counter-reset:step;display:grid;gap:14px}
+.step{position:relative;padding:16px 16px 16px 60px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;font-size:.93rem;color:#e6dfe4}
+.step::before{counter-increment:step;content:counter(step);position:absolute;left:16px;top:16px;width:30px;height:30px;border-radius:50%;background:linear-gradient(120deg,var(--red),var(--pink));display:flex;align-items:center;justify-content:center;font-weight:800}
+.setup-box{background:rgba(255,159,67,.07);border:1px solid rgba(255,159,67,.35);border-radius:12px;padding:14px 16px;font-size:.85rem;color:#ffd9ad;margin:14px 0}
+.setup-box code{background:rgba(0,0,0,.4);padding:2px 6px;border-radius:6px;font-size:.8rem}
+@media(max-width:560px){.nav-row{flex-direction:column}.btn{padding:15px 20px}}
+@media print{header.site,.wa-float,.toast,.actions-grid,.chart-actions{display:none!important}body{background:#fff;color:#000}}
+.logo img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}</style>
+</head>
+<body>
+<header class="site">
+  <div class="nav-inner">
+    <a class="logo" href="#inicio">
+  <img src="Logo_Sinais_Ocultos_em_Vermelho_e_Preto-removebg-preview.png" alt="Sinais Ocultos">
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+    <nav class="menu" id="menu">
+      <a href="#/inicio" data-route="inicio">Início</a>
+      <a href="#/teste" data-route="teste">Fazer teste</a>
+      <a href="#/testes" data-route="testes">Outros testes</a>
+      <a href="#/como-funciona" data-route="como-funciona">Como funciona</a>
+      <a class="btn-wa" href="https://wa.me/5538991320815?text=Ol%C3%A1%21%20Quero%20saber%20mais%20sobre%20o%20Sinais%20Ocultos." target="_blank" rel="noopener">WhatsApp</a>
+    </nav>
+  </div>
+</header>
+
+<main id="app" class="wrap"></main>
+
+<div class="modal-bg" id="modal-bg">
+  <div class="modal">
+    <h3 id="modal-title"></h3>
+    <p id="modal-text"></p>
+    <div class="row">
+      <button class="btn btn-ghost" id="modal-cancel">Cancelar</button>
+      <button class="btn btn-primary" id="modal-ok">Confirmar</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<a class="wa-float" href="https://wa.me/5538991320815?text=Ol%C3%A1%21%20Quero%20saber%20mais%20sobre%20o%20Sinais%20Ocultos." target="_blank" rel="noopener" aria-label="Falar pelo WhatsApp">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.83 9.83 0 0 0 12.04 2zm0 18.15a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.23 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.17.25-.64.8-.78.97-.15.17-.29.19-.54.06-.25-.12-1.05-.38-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.27z"/></svg>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script>
+/* ============================================================
+   SINAIS OCULTOS — plataforma de reflexão sobre relacionamentos
+   ============================================================ */
+"use strict";
+
+/* ---------- CONFIGURAÇÃO (integrações externas) ---------- */
+var CONFIG = {
+  whatsappAdmin: "5538991320815",
+  whatsappMsg: "Ol%C3%A1%21%20Quero%20saber%20mais%20sobre%20o%20Sinais%20Ocultos."
+};
+
+var WA_LINK = "https://wa.me/" + CONFIG.whatsappAdmin + "?text=" + CONFIG.whatsappMsg;
+
+/* ---------- helpers ---------- */
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function fmtDate(iso){ try{ return new Date(iso).toLocaleString("pt-BR",{dateStyle:"short",timeStyle:"short"}); }catch(e){ return iso; } }
+
+function toast(msg){
+  var t=$("toast"); t.textContent=msg; t.classList.add("show");
+  clearTimeout(t._tm); t._tm=setTimeout(function(){ t.classList.remove("show"); },2800);
+}
+
+var _modalCb=null;
+function confirmModal(title,text,okLabel,cb){
+  $("modal-title").textContent=title;
+  $("modal-text").textContent=text;
+  $("modal-ok").textContent=okLabel||"Confirmar";
+  _modalCb=cb; $("modal-bg").classList.add("open");
+}
+$("modal-cancel").addEventListener("click",function(){ $("modal-bg").classList.remove("open"); _modalCb=null; });
+$("modal-bg").addEventListener("click",function(e){ if(e.target===this){ this.classList.remove("open"); _modalCb=null; } });
+$("modal-ok").addEventListener("click",function(){ $("modal-bg").classList.remove("open"); if(_modalCb){ var cb=_modalCb; _modalCb=null; cb(); } });
+
+/* ============================================================
+   DADOS — TESTE PRINCIPAL (30 perguntas / 8 categorias)
+   Distribuição: 6 primeiras categorias com 4 perguntas,
+   2 últimas com 3 perguntas (total 30, balanceado).
+   v = pontuação da alternativa (0 a 3). Maior = mais preocupação.
+   Perguntas positivas e negativas misturadas para reduzir viés.
+   ============================================================ */
+var CATS = [
+  { id:"comunicacao",   name:"Comunicação no relacionamento" },
+  { id:"confianca",     name:"Confiança e transparência" },
+  { id:"comportamento", name:"Mudanças de comportamento" },
+  { id:"respeito",      name:"Respeito emocional" },
+  { id:"ciumes",        name:"Ciúmes e insegurança" },
+  { id:"conflitos",     name:"Resolução de conflitos" },
+  { id:"limites",       name:"Limites pessoais" },
+  { id:"bemestar",      name:"Satisfação e bem-estar" }
+];
+
+var MAIN_TEST = {
+  id:"principal", title:"Teste Principal — Panorama do Relacionamento",
+  desc:"30 perguntas sobre comunicação, confiança, respeito, ciúmes, conflitos, limites e bem-estar.",
+  cats: CATS.map(function(c){return c.id;}),
+  questions: [
+  /* --- Comunicação (4) --- */
+  {c:0,q:"Você sente que consegue conversar abertamente com seu parceiro(a) sobre o que sente?",o:[["Sempre",0],["Na maioria das vezes",1],["Raramente",2],["Nunca",3]]},
+  {c:0,q:"Quando surge um assunto delicado, vocês conseguem discuti-lo com calma e honestidade?",o:[["Sempre",0],["Na maioria das vezes",1],["Raramente",2],["Nunca",3]]},
+  {c:0,q:"Você evita certos assuntos por medo da reação do seu parceiro(a)?",o:[["Nunca",0],["Raramente",1],["Frequentemente",2],["Quase sempre",3]]},
+  {c:0,q:"Após uma conversa importante, você sai dela se sentindo ouvido(a) e compreendido(a)?",o:[["Sempre",0],["Na maioria das vezes",1],["Raramente",2],["Nunca",3]]},
+  /* --- Confiança e transparência (4) --- */
+  {c:1,q:"Você confia no que seu parceiro(a) diz sobre sua rotina e seus compromissos?",o:[["Confio plenamente",0],["Confio na maioria das vezes",1],["Tenho dúvidas frequentes",2],["Não confio",3]]},
+  {c:1,q:"Você percebe coerência entre o que seu parceiro(a) diz e o que efetivamente faz?",o:[["Sempre",0],["Na maioria das vezes",1],["Raramente",2],["Nunca",3]]},
+  {c:1,q:"Seu parceiro(a) compartilha informações sobre a vida dele(a) com naturalidade?",o:[["Sempre",0],["Na maioria das vezes",1],["Raramente",2],["Nunca",3]]},
+  {c:1,q:"Você já encontrou explicações contraditórias sobre onde ou com quem ele(a) estava?",o:[["Nunca",0],["Raramente",1],["Algumas vezes",2],["Frequentemente",3]]},
+  /* --- Mudanças de comportamento (4) --- */
+  {c:2,q:"Você notou mudanças visíveis no comportamento do seu parceiro(a) recentemente?",o:[["Não",0],["Mudanças pequenas",1],["Mudanças claras",2],["Mudanças muito evidentes",3]]},
+  {c:2,q:"O tempo que ele(a) dedica ao relacionamento mudou significativamente?",o:[["Não mudou",0],["Mudou pouco",1],["Mudou bastante",2],["Mudou completamente",3]]},
+  {c:2,q:"Novos hábitos, rotinas ou interesses apareceram sem que ele(a) converse sobre isso?",o:[["Não",0],["Raramente",1],["Frequentemente",2],["Quase sempre",3]]},
+  {c:2,q:"Quando você pergunta sobre essas mudanças, recebe respostas tranquilas e claras?",o:[["Sempre",0],["Na maioria das vezes",1],["Raramente",2],["Nunca",3]]},
+  /* --- Respeito emocional (4) — inclui checagem de segurança --- */
+  {c:3,q:"Quando você expressa uma preocupação, seus sentimentos são respeitados?",o:[["Sempre",0],["Na maioria das vezes",1],["Raramente",2],["Nunca",3]]},
+  {c:3,q:"Nas discordâncias, o tom de voz e as palavras usados por ele(a) são respeitosos?",o:[["Sempre",0],["Na maioria das vezes",1],["Raramente",2],["Nunca",3]]},
+  {c:3,q:"Você já se sentiu humilhado(a) ou diminuído(a) pelo seu parceiro(a)?",o:[["Nunca",0],["Raramente",1],["Algumas vezes",2],["Frequentemente",3]]},
+  {c:3,q:"Você já sentiu medo, foi ameaçado(a) ou intimidado(a) por ele(a)?",o:[["Nunca",0],["Raramente",1],["Algumas vezes",2],["Frequentemente",3]],safety:true},
+  /* --- Ciúmes e insegurança (4) --- */
+  {c:4,q:"Você se sente inseguro(a) em relação ao sentimento do seu parceiro(a) por você?",o:[["Não",0],["Levemente",1],["Com frequência",2],["Constantemente",3]]},
+  {c:4,q:"Como você descreve o ciúme presente no relacionamento?",o:[["Quase inexistente",0],["Ocasionais e leves",1],["Frequentes e intensos",2],["Muito intensos, de ambos ou de um de nós",3]]},
+  {c:4,q:"O ciúme já limita sua liberdade (amizades, saídas, roupas, conversas)?",o:[["Não",0],["Um pouco",1],["Bastante",2],["Totalmente",3]]},
+  {c:4,q:"Você se compara frequentemente com outras pessoas por causa do relacionamento?",o:[["Não",0],["Raramente",1],["Frequentemente",2],["Quase sempre",3]]},
+  /* --- Resolução de conflitos (4) --- */
+  {c:5,q:"Depois de uma briga, vocês conseguem se reaproximar e resolver o problema?",o:[["Sempre",0],["Na maioria das vezes",1],["Raramente",2],["Nunca",3]]},
+  {c:5,q:"Conflitos costumam ser resolvidos no mesmo dia ou logo em seguida?",o:[["Sempre",0],["Na maioria das vezes",1],["Raramente",2],["Nunca — se arrastam por dias",3]]},
+  {c:5,q:"Durante discussões, já houve gritos, ofensas ou quebra de objetos?",o:[["Nunca",0],["Raramente",1],["Frequentemente",2],["Quase sempre",3]]},
+  {c:5,q:"Vocês conseguem pedir desculpas um ao outro quando erram?",o:[["Sempre",0],["Na maioria das vezes",1],["Raramente",2],["Nunca",3]]},
+  /* --- Limites pessoais (3) --- */
+  {c:6,q:"Você consegue dizer 'não' ao seu parceiro(a) sem sentir culpa excessiva?",o:[["Sempre",0],["Na maioria das vezes",1],["Raramente",2],["Nunca",3]]},
+  {c:6,q:"Seu direito de ter amigos, hobbies e momentos próprios é respeitado?",o:[["Totalmente",0],["Na maioria das vezes",1],["Raramente",2],["Nunca",3]]},
+  {c:6,q:"Você sente que precisa esconder partes da sua vida para evitar conflitos?",o:[["Nunca",0],["Raramente",1],["Frequentemente",2],["Quase sempre",3]]},
+  /* --- Satisfação e bem-estar (3) --- */
+  {c:7,q:"De modo geral, como você avalia sua tranquilidade emocional nesse relacionamento?",o:[["Muito tranquilo(a)",0],["Relativamente tranquilo(a)",1],["Inseguro(a) com frequência",2],["Constantemente inseguro(a)",3]]},
+  {c:7,q:"Você se sente bem consigo mesmo(a) estando nesse relacionamento?",o:[["Sempre",0],["Na maioria das vezes",1],["Raramente",2],["Nunca",3]]},
+  {c:7,q:"Se nada mudar nos próximos meses, como você se sente em relação ao futuro do relacionamento?",o:[["Otimista",0],["Em paz, com ressalvas",1],["Preocupado(a)",2],["Muito angustiado(a)",3]]}
+  ],
+  bands:[
+    {min:0,max:29,title:"Poucos sinais de desgaste",
+     msg:"Suas respostas indicam relativamente poucas dificuldades nos aspectos avaliados. Isso não significa um relacionamento perfeito — mas é uma boa base para continuar cultivando confiança e comunicação."},
+    {min:30,max:59,title:"Alguns pontos merecem atenção",
+     msg:"Suas respostas apontam preocupações em alguns aspectos do relacionamento. Identificar situações concretas e conversar com calma sobre elas costuma ser o caminho mais saudável."},
+    {min:60,max:90,title:"Muitos sinais de desgaste relatados",
+     msg:"Suas respostas indicam desconforto importante em vários aspectos do relacionamento. Reserve um tempo para refletir sobre seus limites, seu bem-estar e sobre o apoio de que você precisa neste momento."}
+  ]
+};
+
+/* ============================================================
+   DADOS — OUTROS TESTES (6 testes independentes, 8 perguntas cada)
+   ============================================================ */
+function opt(a,b,c,d){ return [[a,0],[b,1],[c,2],[d,3]]; }
+
+var MINI_TESTS = {
+  confianca: {
+    id:"confianca", title:"Teste de Confiança",
+    desc:"Como está a confiança e a transparência entre vocês?",
+    cats:["Confiança no dia a dia","Transparência e coerência"],
+    questions:[
+      {c:0,q:"Você acredita no que seu parceiro(a) conta sobre o dia a dia dele(a)?",o:opt("Sempre","Na maioria das vezes","Raramente","Nunca")},
+      {c:0,q:"Quando você precisa, consegue contar com ele(a) de verdade?",o:opt("Sempre","Na maioria das vezes","Raramente","Nunca")},
+      {c:0,q:"Você se sente seguro(a) emocionalmente com essa pessoa?",o:opt("Sempre","Na maioria das vezes","Raramente","Nunca")},
+      {c:0,q:"Promessas feitas por ele(a) costumam ser cumpridas?",o:opt("Sempre","Na maioria das vezes","Raramente","Nunca")},
+      {c:1,q:"O que ele(a) diz corresponde ao que faz?",o:opt("Sempre","Na maioria das vezes","Raramente","Nunca")},
+      {c:1,q:"Ele(a) fala sobre a própria vida com abertura?",o:opt("Sempre","Na maioria das vezes","Raramente","Nunca")},
+      {c:1,q:"Você já flagrou contradições importantes nas histórias dele(a)?",o:opt("Nunca","Raramente","Algumas vezes","Frequentemente")},
+      {c:1,q:"O celular e as redes dele(a) são tratados como segredo absoluto?",o:opt("Não","Um pouco","Bastante","Totalmente")}
+    ],
+    bands:[
+      {min:0,max:7,title:"Confiança sólida",msg:"Suas respostas indicam uma base de confiança consistente. Continue nutrindo a transparência no dia a dia."},
+      {min:8,max:15,title:"Confiança com ressalvas",msg:"Há pontos de atenção na confiança entre vocês. Conversar sobre expectativas de transparência pode ajudar."},
+      {min:16,max:24,title:"Confiança bastante abalada",msg:"Suas respostas mostram desgaste forte na confiança. Reflita sobre o que você precisa para se sentir seguro(a) e considere buscar apoio."}
+    ]
+  },
+  comunicacao: {
+    id:"comunicacao", title:"Teste de Comunicação do Casal",
+    desc:"Vocês se entendem ou apenas se falam?",
+    cats:["Expressar sentimentos","Escuta e atenção"],
+    questions:[
+      {c:0,q:"Você consegue dizer ao parceiro(a) quando algo te machuca?",o:opt("Sempre","Na maioria das vezes","Raramente","Nunca")},
+      {c:0,q:"Você fala sobre suas necessidades emocionais com clareza?",o:opt("Sempre","Na maioria das vezes","Raramente","Nunca")},
+      {c:0,q:"Você evita falar o que pensa para não criar conflito?",o:opt("Nunca","Raramente","Frequentemente","Quase sempre")},
+      {c:0,q:"Seu parceiro(a) sabe como você está se sentindo ultimamente?",o:opt("Sempre sabe","Na maioria das vezes","Raramente","Nunca")},
+      {c:1,q:"Quando você fala, sente que é ouvido(a) de verdade?",o:opt("Sempre","Na maioria das vezes","Raramente","Nunca")},
+      {c:1,q:"Seu parceiro(a) demonstra interesse pelo que você vive?",o:opt("Sempre","Na maioria das vezes","Raramente","Nunca")},
+      {c:1,q:"Vocês fazem perguntas um ao outro sobre o dia, sonhos e planos?",o:opt("Frequentemente","Às vezes","Raramente","Nunca")},
+      {c:1,q:"Após conversas importantes, você se sente compreendido(a)?",o:opt("Sempre","Na maioria das vezes","Raramente","Nunca")}
+    ],
+    bands:[
+      {min:0,max:7,title:"Comunicação saudável",msg:"Vocês parecem se comunicar com abertura. Esse é um dos pilares mais valiosos de um relacionamento."},
+      {min:8,max:15,title:"Comunicação precisa de atenção",msg:"Há barreiras de comunicação entre vocês. Pequenos ajustes na forma de falar e ouvir podem mudar muito."},
+      {min:16,max:24,title:"Comunicação muito limitada",msg:"A comunicação entre vocês está bastante restrita. Escolher um bom momento para conversar é o primeiro passo."}
+    ]
+  },
+  ciumes: {
+    id:"ciumes", title:"Teste de Ciúmes e Insegurança",
+    desc:"O ciúme entre vocês é saudável ou sufocante?",
+    cats:["Ciúme no cotidiano","Insegurança pessoal"],
+    questions:[
+      {c:0,q:"Com que frequência ciúmes geram desconforto entre vocês?",o:opt("Nunca","Raramente","Frequentemente","Quase sempre")},
+      {c:0,q:"O ciúme já causou brigas sérias no relacionamento?",o:opt("Nunca","Raramente","Frequentemente","Quase sempre")},
+      {c:0,q:"Seu parceiro(a) controla com quem você fala ou onde vai?",o:opt("Nunca","Raramente","Frequentemente","Quase sempre")},
+      {c:0,q:"Você precisa pedir permissão para sair ou ver amigos?",o:opt("Nunca","Raramente","Frequentemente","Quase sempre")},
+      {c:1,q:"Você se sente inseguro(a) em relação ao próprio valor no relacionamento?",o:opt("Não","Um pouco","Frequentemente","Constantemente")},
+      {c:1,q:"Você compara-se com outras pessoas por causa do relacionamento?",o:opt("Nunca","Raramente","Frequentemente","Quase sempre")},
+      {c:1,q:"Você teme que seu parceiro(a) perca o interesse por você?",o:opt("Não","Às vezes","Frequentemente","Constantemente")},
+      {c:1,q:"Essa insegurança já afetou seu sono, trabalho ou amizades?",o:opt("Não","Levemente","Moderadamente","Muito")}
+    ],
+    bands:[
+      {min:0,max:7,title:"Ciúme sob controle",msg:"O ciúme no relacionamento parece leve e saudável. Mantenham a confiança como prioridade."},
+      {min:8,max:15,title:"Ciúme que pede atenção",msg:"O ciúme tem peso considerável entre vocês. Vale refletir sobre o que alimenta essa insegurança."},
+      {min:16,max:24,title:"Ciúme sufocante",msg:"O ciúme está muito intenso e pode estar limitando a liberdade de um ou de ambos. Converse sobre limites com calma e, se preciso, busque apoio profissional."}
+    ]
+  },
+  expectativas: {
+    id:"expectativas", title:"Teste de Compatibilidade de Expectativas",
+    desc:"Vocês querem as mesmas coisas para o futuro?",
+    cats:["Alinhamento de expectativas","Planos em comum"],
+    questions:[
+      {c:0,q:"Vocês já conversaram sobre o futuro do relacionamento?",o:opt("Sim, com clareza","Sim, de forma vaga","Pouco","Nunca")},
+      {c:0,q:"Vocês têm ideias parecidas sobre moradia, rotina e estilo de vida?",o:opt("Muito parecidas","Parecidas em partes","Divergentes","Muito divergentes")},
+      {c:0,q:"Existe alinhamento sobre questões como filhos, finanças ou casamento?",o:opt("Total","Parcial","Pouco","Nenhum / nunca conversamos")},
+      {c:0,q:"Você sente que o outro leva suas expectativas a sério?",o:opt("Sempre","Na maioria das vezes","Raramente","Nunca")},
+      {c:1,q:"Vocês constroem planos juntos com regularidade?",o:opt("Sim, frequentemente","Às vezes","Raramente","Nunca")},
+      {c:1,q:"Esses planos costumam se concretizar?",o:opt("Sempre","Na maioria das vezes","Raramente","Nunca")},
+      {c:1,q:"Quando os planos mudam, vocês conversam e se reajustam?",o:opt("Sempre","Na maioria das vezes","Raramente","Nunca")},
+      {c:1,q:"Você se vê no futuro ao lado dessa pessoa?",o:opt("Com clareza","Com algumas dúvidas","Com muitas dúvidas","Não me vejo")}
+    ],
+    bands:[
+      {min:0,max:7,title:"Expectativas alinhadas",msg:"Vocês parecem estar na mesma página sobre o futuro. Continuem conversando sobre planos com regularidade."},
+      {min:8,max:15,title:"Pontos a alinhar",msg:"Há diferenças de expectativa que merecem conversa honesta e sem pressa entre vocês."},
+      {min:16,max:24,title:"Expectativas divergentes",msg:"As respostas mostram desalinhamento importante sobre o futuro. Vale refletir sobre o que cada um deseja e conversar com sinceridade."}
+    ]
+  },
+  limites: {
+    id:"limites", title:"Teste de Limites e Respeito",
+    desc:"Seus limites pessoais são respeitados?",
+    cats:["Limites pessoais respeitados","Respeito às diferenças"],
+    questions:[
+      {c:0,q:"Você consegue dizer 'não' sem medo de represálias?",o:opt("Sempre","Na maioria das vezes","Raramente","Nunca")},
+      {c:0,q:"Quando você impõe um limite, ele é respeitado?",o:opt("Sempre","Na maioria das vezes","Raramente","Nunca")},
+      {c:0,q:"Você mantém suas amizades e hobbies?",o:opt("Totalmente","Em grande parte","Pouco","Não")},
+      {c:0,q:"Você sente que precisa pisar em ovos perto do parceiro(a)?",o:opt("Nunca","Raramente","Frequentemente","Quase sempre")},
+      {c:1,q:"Opiniões diferentes são respeitadas nas discussões?",o:opt("Sempre","Na maioria das vezes","Raramente","Nunca")},
+      {c:1,q:"Seu parceiro(a) aceita seus amigos e familiares?",o:opt("Sim, plenamente","Na maioria das vezes","Com dificuldade","Não")},
+      {c:1,q:"Há espaço para você ser quem é no relacionamento?",o:opt("Sempre","Na maioria das vezes","Raramente","Nunca")},
+      {c:1,q:"Você já se sentiu pressionado(a) a mudar quem você é?",o:opt("Nunca","Raramente","Frequentemente","Quase sempre")}
+    ],
+    bands:[
+      {min:0,max:7,title:"Limites saudáveis",msg:"Seus limites parecem ser respeitados. Isso é essencial para um relacionamento equilibrado."},
+      {min:8,max:15,title:"Limites sob pressão",msg:"Alguns dos seus limites estão sendo testados. Comunicá-los com clareza é fundamental."},
+      {min:16,max:24,title:"Limites muito fragilizados",msg:"Suas respostas indicam que seus limites pessoais estão sendo fortemente pressionados. Priorize seu bem-estar e busque apoio de pessoas de confiança."}
+    ]
+  },
+  satisfacao: {
+    id:"satisfacao", title:"Teste de Satisfação no Relacionamento",
+    desc:"Como está sua felicidade emocional no relacionamento?",
+    cats:["Satisfação emocional","Qualidade do tempo juntos"],
+    questions:[
+      {c:0,q:"Você se sente feliz na maior parte do tempo nesse relacionamento?",o:opt("Sim, muito","Razoavelmente","Pouco","Não")},
+      {c:0,q:"Você se sente valorizado(a) pelo parceiro(a)?",o:opt("Sempre","Na maioria das vezes","Raramente","Nunca")},
+      {c:0,q:"O relacionamento acrescenta energia à sua vida?",o:opt("Muito","Razoavelmente","Pouco","Tira energia")},
+      {c:0,q:"Você sente que pode ser você mesmo(a) com essa pessoa?",o:opt("Sempre","Na maioria das vezes","Raramente","Nunca")},
+      {c:1,q:"Vocês reservam tempo de qualidade juntos?",o:opt("Frequentemente","Às vezes","Raramente","Nunca")},
+      {c:1,q:"Esse tempo juntos é aproveitado de verdade?",o:opt("Sempre","Na maioria das vezes","Raramente","Nunca")},
+      {c:1,q:"Vocês ainda demonstram carinho um pelo outro?",o:opt("Frequentemente","Às vezes","Raramente","Nunca")},
+      {c:1,q:"Você sente que o relacionamento evolui positivamente?",o:opt("Sim, claramente","Em partes","Pouco","Sinto estagnação ou retrocesso")}
+    ],
+    bands:[
+      {min:0,max:7,title:"Alta satisfação",msg:"Você relata bem-estar e satisfação no relacionamento. Continue investindo nessa conexão."},
+      {min:8,max:15,title:"Satisfação em baixa",msg:"Sua satisfação emocional parece reduzida em alguns pontos. Identifique o que mudaria isso e converse sobre isso."},
+      {min:16,max:24,title:"Bem-estar muito comprometido",msg:"Suas respostas indicam sofrimento emocional relevante. Cuidar de você e buscar apoio profissional são passos válidos e importantes."}
+    ]
+  }
+};
+
+/* ---------- banco de dicas por categoria ---------- */
+var TIPS = {
+  comunicacao:"Escolha um momento tranquilo e sem pressa para conversar sobre um único assunto, usando frases que começam com \"eu sinto\", em vez de acusações.",
+  confianca:"Antes de tirar conclusões, observe fatos concretos (o que foi dito e o que foi feito) e, quando estiver calmo(a), compartilhe essas observações perguntando em vez de afirmando.",
+  comportamento:"Em vez de investigar, converse: diga o que você notou e como isso te afetou. Mudanças de comportamento têm muitas causas possíveis — diálogo é o caminho para entendê-las.",
+  respeito:"Identifique um limite emocional importante para você e comunique-o com clareza em um momento de paz, nunca no calor de uma discussão.",
+  ciumes:"Converse sobre o que desperta o ciúme e estabeleçam juntos limites saudáveis. Ciúme intenso costuma nascer de insegurança — sua ou do relacionamento.",
+  conflitos:"Combinem uma regra para brigas: pausa quando a conversa esquenta, retomada em até 24 horas. Conflito não destrói relacionamento — conflito mal conduzido, sim.",
+  limites:"Pratique dizer \"não\" em situações pequenas primeiro. Limites claros e respeitosos protegem o relacionamento, não ameaçam.",
+  bemestar:"Reserve um tempo semanal para cuidar de si mesmo(a): sono, amigos, hobbies. Seu bem-estar individual é a base do bem-estar a dois.",
+  confianca_dia:"Reforce pequenos gestos de confiança no cotidiano: cumprir o que se promete e avisar sobre mudanças de plano.",
+  transparencia:"Construa transparência por hábito, não por exigência: compartilhar rotinas e planos com naturalidade gera segurança nos dois.",
+  expressar:"Escreva em poucas linhas o que você sente antes de conversar — organizar as palavras no papel facilita dizer em voz alta.",
+  escuta:"Na próxima conversa, foque em ouvir: repita com suas palavras o que entendeu antes de responder. Sentir-se compreendido muda tudo.",
+  ciume_cotidiano:"Quando o ciúme aparecer, pergunte a si mesmo(a): isso é um fato ou um medo? Converse sobre o medo, não sobre a acusação.",
+  inseguranca:"Invista em sua autoestima fora do relacionamento: projetos pessoais e amizades reduzem a dependência emocional.",
+  alinhamento:"Marquem uma conversa mensal sobre o futuro: sonhos, planos e expectativas mudam — alinhar é um hábito, não um evento.",
+  planos:"Criem juntos um pequeno plano de curto prazo (uma viagem, um projeto) e cumpram. Concretizar planos renova a parceria.",
+  limites_resp:"Liste seus três limites mais importantes e compartilhe com seu parceiro(a) de forma clara e serena.",
+  diferencas:"Diferenças não são defeitos: combinem respeitar opiniões divergentes sem tentar vencer a discussão.",
+  satisfacao_emoc:"Denomine o que está bom: dizer \"eu gosto quando...\" fortalece os comportamentos que funcionam.",
+  tempo_juntos:"Proponha um ritual semanal a dois, mesmo que simples (um café, uma caminhada). Constância vale mais que grandiosidade.",
+  geral1:"Combine com seu parceiro(a) um momento semanal para conversar sobre o relacionamento, mesmo quando tudo parecer bem.",
+  geral2:"Evite conversas sérias por mensagem: assuntos importantes merecem voz, olho no olho ou uma ligação.",
+  geral3:"Acompanhe sua segurança emocional ao longo das próximas semanas; se o desconforto persistir, conversar com um psicólogo pode trazer clareza e apoio.",
+  geral4:"Antes de uma conversa difícil, escreva o ponto principal em uma única frase e decida qual pedido concreto você fará ao final dela.",
+  geral5:"Separe o que você sente do que você sabe: sentimentos são sempre válidos, e decisões ficam mais claras quando baseadas nos fatos."
+};
+
+/* ---------- perguntas para reflexão pessoal ---------- */
+var REFLECT = {
+  comunicacao:"O que eu deixaria de sentir se pudesse falar abertamente sobre tudo?",
+  confianca:"Que comportamentos concretos aumentariam ou reduziriam minha sensação de segurança?",
+  comportamento:"Quais mudanças eu percebo de fato e quais são apenas impressões minhas?",
+  respeito:"Estou recebendo o mesmo respeito que dou? Onde isso falta?",
+  ciumes:"Meu ciúme nasce de fatos ou de medos antigos meus?",
+  conflitos:"O que acontece comigo durante uma briga — e o que eu gostaria que acontecesse?",
+  limites:"Quais limites eu deixei de lado para \"preservar a paz\"?",
+  bemestar:"Estou me sentindo mais eu, ou menos eu, nesse relacionamento?",
+  geral1:"Se um amigo me contasse essa mesma história, o que eu diria a ele?",
+  geral2:"O que está sob meu controle mudar hoje — e o que não está?"
+};
+
+/* ---------- como conversar sem acusações ---------- */
+var TALK_GUIDE = [
+  "Escolha o momento certo: nem durante a briga, nem na correria do dia a dia.",
+  "Comece falando de você: \"eu tenho me sentido...\" em vez de \"você nunca...\".",
+  "Cite situações concretas e recentes, não acumulo de queixas antigas.",
+  "Ouça a versão do outro até o fim, sem interromper, e valide o que fizer sentido.",
+  "Termine combinando um próximo passo pequeno e possível, não um ultimato."
+];
+
+/* ============================================================
+   NÚCLEO — roteamento, quiz, resultados, gráficos, exportação
+   ============================================================ */
+var app = $("app");
+var LAST = null;              // último resultado calculado {testId, test, result, dateISO}
+var charts = [];              // instâncias Chart.js ativas
+var quiz = { testId:null, answers:[], current:0 };
+
+function getTest(id){ return id === "principal" ? MAIN_TEST : MINI_TESTS[id]; }
+
+/* ---------- roteador ---------- */
+var ROUTES = {
+  "inicio": viewHome, "teste": function(){ startQuiz("principal"); },
+  "testes": viewMiniList, "como-funciona": viewHow,
+  "privacidade": viewPrivacy, "termos": viewTerms
+};
+
+function router(){
+  var hash = location.hash.replace(/^#\/?/, "") || "inicio";
+  var parts = hash.split("/");
+  var route = parts[0], param = parts[1];
+  charts.forEach(function(c){ try{ c.destroy(); }catch(e){} }); charts = [];
+
+  if (route === "teste" && param && param !== "principal"){ startQuiz(param); return; }
+  var view = ROUTES[route] || viewHome;
+  app.innerHTML = "";
+  var el = document.createElement("div");
+  el.className = "screen-anim";
+  var node = view();
+  if (node) el.appendChild(node);
+  app.appendChild(el);
+
+  document.querySelectorAll('nav.menu a[data-route]').forEach(function(a){
+    a.classList.toggle("active", a.getAttribute("data-route") === route);
+  });
+  $("menu").classList.remove("open");
+  window.scrollTo({top:0});
+}
+window.addEventListener("hashchange", router);
+$("hamburger").addEventListener("click", function(){ $("menu").classList.toggle("open"); });
+
+/* ============================================================
+   VIEWS PÚBLICAS
+   ============================================================ */
+function heroTile(test, href){
+  var n = test.questions.length;
+  return '<a class="tile" href="' + href + '"><span class="tag">' + n + ' perguntas</span><h3>' + esc(test.title) + '</h3><p>' + esc(test.desc) + '</p></a>';
+}
+
+function viewHome(){
+  var d = document.createElement("div");
+  d.innerHTML =
+  '<section class="section" style="text-align:center;margin-top:20px">' +
+    '<h1>Entenda os <span class="accent">sinais</span> do seu relacionamento</h1>' +
+    '<p class="sub" style="margin:14px auto 26px">Testes de reflexão com resultados personalizados, gráficos automáticos e dicas práticas — sem julgamentos, sem diagnósticos e com sua privacidade em primeiro lugar.</p>' +
+    '<div style="max-width:340px;margin:0 auto"><a class="btn btn-primary" href="#/teste">Fazer o teste principal</a></div>' +
+    '<p style="margin-top:14px;font-size:.85rem;color:var(--muted)">30 perguntas · resultado na hora · nada é enviado sem o seu consentimento</p>' +
+  '</section>' +
+  '<section class="section"><h2>Outros testes</h2><p class="sub" style="margin-bottom:18px">Testes independentes, cada um com suas próprias perguntas, pontuação e gráficos.</p>' +
+    '<div class="grid cols-2">' + Object.keys(MINI_TESTS).map(function(k){ return heroTile(MINI_TESTS[k], "#/teste/" + k); }).join("") + '</div>' +
+  '</section>' +
+  '<section class="section"><div class="card"><h2>Como o <span class="accent">Sinais Ocultos</span> funciona?</h2><div class="steps" style="margin-top:16px">' +
+    '<div class="step">Responda com sinceridade às perguntas sobre o relacionamento. Uma pergunta por vez, no seu ritmo.</div>' +
+    '<div class="step">Ao final, calculamos pontuações por categoria e geramos gráficos com base exclusivamente nas suas respostas.</div>' +
+    '<div class="step">Você recebe uma interpretação, dicas práticas personalizadas e perguntas para reflexão — nunca um "diagnóstico" de traição.</div>' +
+    '<div class="step">O resultado é gerado na hora, no seu aparelho — você pode baixar em PDF, salvar os gráficos ou compartilhar manualmente.</div>' +
+  '</div></div></section>' +
+  '<section class="section"><div class="card" style="text-align:center"><h2>Dúvidas? Fale com a gente</h2><p class="sub" style="margin:8px auto 18px">Atendimento pelo WhatsApp, de forma discreta.</p>' +
+  '<a class="btn btn-whatsapp" style="max-width:320px;margin:0 auto" target="_blank" rel="noopener" href="' + WA_LINK + '">Falar pelo WhatsApp</a></div></section>';
+  return d;
+}
+
+function viewMiniList(){
+  var d = document.createElement("div");
+  d.innerHTML = '<section class="section"><h1>Outros <span class="accent">testes</span></h1>' +
+  '<p class="sub" style="margin:10px 0 20px">Cada teste é independente: perguntas próprias, categorias específicas, pontuação coerente e resultado individual.</p>' +
+  '<div class="grid cols-2">' + Object.keys(MINI_TESTS).map(function(k){ return heroTile(MINI_TESTS[k], "#/teste/" + k); }).join("") + '</div></section>';
+  return d;
+}
+
+function viewHow(){
+  var d = document.createElement("div");
+  d.innerHTML = '<section class="section"><h1>Como <span class="accent">funciona</span></h1>' +
+  '<div class="card" style="margin-top:18px"><div class="steps">' +
+  '<div class="step">Os testes medem aspectos como comunicação, confiança, respeito emocional, ciúmes, conflitos, limites e bem-estar. Cada pergunta tem alternativas com pontuação de 0 a 3.</div>' +
+  '<div class="step">A pontuação total e por categoria é calculada automaticamente no seu navegador, com base exclusivamente nas suas respostas.</div>' +
+  '<div class="step">Os gráficos mostram a intensidade dos sinais relatados em cada categoria. Quanto maior a pontuação, mais preocupações foram relatadas — não é uma avaliação científica nem prova de comportamento de terceiros.</div>' +
+  '<div class="step">O resultado inclui pontos positivos, aspectos para reflexão, cinco dicas práticas e sugestões de como conversar sem acusações.</div>' +
+  '<div class="step">Você pode baixar o resultado em PDF, salvar os gráficos como imagem e compartilhar um resumo — sempre manualmente, nunca automaticamente.</div>' +
+  '<div class="step"><strong>Privacidade:</strong> sem cadastro os testes funcionam normalmente e nada sai do seu aparelho. Veja a <a href="#/privacidade">Política de Privacidade</a>.</div>' +
+  '</div></div></section>';
+  return d;
+}
+
+function viewPrivacy(){
+  var d = document.createElement("div");
+  d.innerHTML = '<section class="section"><div class="card"><h1 style="font-size:1.6rem">Política de <span class="accent">Privacidade</span></h1><div style="color:#e6dfe4;font-size:.93rem;display:grid;gap:12px;margin-top:14px">' +
+  '<p><strong>1. Sem cadastro.</strong> Todos os testes funcionam sem conta e sem qualquer dado pessoal: nada é solicitado para responder.</p>' +
+  '<p><strong>2. Processamento local.</strong> Suas respostas e resultados são calculados inteiramente no seu navegador. Não enviamos respostas íntimas a servidores.</p>' +
+  '<p><strong>3. Compartilhamento manual.</strong> Você só compartilha um resultado se copiar o resumo gerado, baixar o PDF ou salvar as imagens dos gráficos — sempre por ação sua.</p>' +
+  '<p><strong>4. Sem armazenamento em servidores.</strong> Como nenhum dado pessoal é coletado, não há informações suas para acessar, corrigir ou excluir — fechar a aba encerra tudo.</p>' +
+  '<p><strong>5. WhatsApp.</strong> O contato pelo WhatsApp é iniciado por você e apenas quando você toca no botão.</p>' +
+  '<p><strong>6. Sem rastreamento oculto.</strong> Não usamos pixels de rastreamento, analytics invisíveis ou venda de dados.</p>' +
+  '</div><p style="margin-top:16px;font-size:.8rem;color:var(--muted)">Última atualização: outubro de 2026.</p></div></section>';
+  return d;
+}
+
+function viewTerms(){
+  var d = document.createElement("div");
+  d.innerHTML = '<section class="section"><div class="card"><h1 style="font-size:1.6rem">Termos de <span class="accent">Uso</span></h1><div style="color:#e6dfe4;font-size:.93rem;display:grid;gap:12px;margin-top:14px">' +
+  '<p><strong>1. Natureza do serviço.</strong> O Sinais Ocultos oferece testes de autorreflexão sobre relacionamentos. Os resultados têm caráter exclusivamente informativo e reflexivo.</p>' +
+  '<p><strong>2. Sem diagnóstico.</strong> Os testes não detectam, comprovam ou estimam traição, não substituem acompanhamento psicológico, terapêutico ou jurídico e não devem ser usados como prova contra terceiros.</p>' +
+  '<p><strong>3. Responsabilidade.</strong> Decisões tomadas com base nos resultados são de responsabilidade exclusiva do usuário. Em situações de risco, violência ou sofrimento intenso, procure imediatamente ajuda profissional ou autoridades competentes.</p>' +
+  '<p><strong>4. Uso adequado.</strong> É proibido usar a plataforma para assediar, acusar ou monitorar terceiros sem consentimento.</p>' +
+  '</div><p style="margin-top:16px;font-size:.8rem;color:var(--muted)">Última atualização: outubro de 2026.</p></div></section>';
+  return d;
+}
+
+/* ============================================================
+   QUIZ
+   ============================================================ */
+function startQuiz(testId){
+  var test = getTest(testId);
+  if (!test){ location.hash = "#/testes"; return; }
+  if (quiz.testId !== testId || quiz.answers.every(function(a){ return a !== null; })){
+    quiz = { testId:testId, answers:new Array(test.questions.length).fill(null), current:0 };
+  }
+  renderQuiz();
+}
+
+function renderQuiz(){
+  var test = getTest(quiz.testId);
+  var total = test.questions.length;
+  var i = quiz.current;
+  var q = test.questions[i];
+  var catName = quiz.testId === "principal" ? CATS[q.c].name : test.cats[q.c];
+  charts.forEach(function(c){ try{ c.destroy(); }catch(e){} }); charts = [];
+
+  var dots = "";
+  for (var k = 0; k < total; k++){
+    dots += '<button type="button" data-dot="' + k + '" class="' +
+      (quiz.answers[k] !== null ? "done" : "") + (k === i ? " current" : "") +
+      '" aria-label="Ir para pergunta ' + (k+1) + '"></button>';
+  }
+
+  var opts = "";
+  q.o.forEach(function(pair, idx){
+    opts += '<button type="button" class="option' + (quiz.answers[i] === idx ? " selected" : "") + '" data-opt="' + idx + '"><span class="check"></span><span>' + esc(pair[0]) + '</span></button>';
+  });
+
+  var isLast = (i === total - 1);
+  app.innerHTML = "";
+  var el = document.createElement("div"); el.className = "screen-anim";
+  el.innerHTML =
+  '<section class="section" style="margin-top:14px"><div class="card">' +
+    '<div class="progress-meta"><span>Pergunta ' + (i+1) + ' de ' + total + '</span><span>' + esc(catName) + '</span></div>' +
+    '<div class="progress-track"><div class="progress-fill" style="width:' + (i/total*100) + '%"></div></div>' +
+    '<div class="dots">' + dots + '</div>' +
+    '<div class="q-text">' + esc(q.q) + '</div>' +
+    '<div class="options">' + opts + '</div>' +
+    '<div class="nav-row">' +
+      '<button class="btn btn-ghost" id="q-prev"' + (i === 0 ? " disabled" : "") + '>Voltar</button>' +
+      '<button class="btn btn-primary" id="q-next"' + (quiz.answers[i] === null ? " disabled" : "") + '>' + (isLast ? "Ver meu resultado" : "Próxima pergunta") + '</button>' +
+    '</div>' +
+    '<div style="text-align:center;margin-top:16px"><button class="btn btn-ghost btn-sm" id="q-restart">Reiniciar teste</button></div>' +
+  '</div></section>';
+  app.appendChild(el);
+
+  el.querySelectorAll("[data-opt]").forEach(function(b){
+    b.addEventListener("click", function(){
+      quiz.answers[i] = parseInt(b.getAttribute("data-opt"), 10);
+      el.querySelectorAll(".option").forEach(function(x){ x.classList.remove("selected"); });
+      b.classList.add("selected");
+      $("q-next").disabled = false;
+      var dot = el.querySelector('[data-dot="' + i + '"]');
+      if (dot) dot.classList.add("done");
+    });
+  });
+  el.querySelectorAll("[data-dot]").forEach(function(b){
+    b.addEventListener("click", function(){
+      quiz.current = parseInt(b.getAttribute("data-dot"), 10);
+      renderQuiz();
+    });
+  });
+  var prev = $("q-prev");
+  if (prev) prev.addEventListener("click", function(){ if (quiz.current > 0){ quiz.current--; renderQuiz(); } });
+  $("q-next").addEventListener("click", function(){
+    if (quiz.answers[quiz.current] === null) return; // impede avançar sem responder
+    if (!isLast){ quiz.current++; renderQuiz(); }
+    else { finishQuiz(); }
+  });
+  $("q-restart").addEventListener("click", function(){
+    confirmModal("Reiniciar teste?", "Suas respostas já preenchidas serão descartadas. Essa ação não pode ser desfeita.", "Reiniciar", function(){
+      quiz.answers = new Array(test.questions.length).fill(null);
+      quiz.current = 0; renderQuiz();
+    });
+  });
+}
+
+/* ============================================================
+   CÁLCULO DO RESULTADO
+   ============================================================ */
+function catList(test){
+  return test.cats.map(function(id, idx){
+    var def = CATS.filter(function(c){ return c.id === id; })[0];
+    var name = def ? def.name : test.cats[idx];
+    var qs = [];
+    test.questions.forEach(function(q, i){ if (q.c === idx) qs.push(i); });
+    return { idx:idx, id:id, name:name, qs:qs };
+  });
+}
+
+function computeResult(test, answers){
+  var cats = catList(test).map(function(c){
+    var score = c.qs.reduce(function(s, qi){ return s + test.questions[qi].o[answers[qi]][1]; }, 0);
+    var max = c.qs.length * 3;
+    return { id:c.id, name:c.name, score:score, max:max, pct:max > 0 ? Math.round(score/max*100) : null };
+  });
+  var total = cats.reduce(function(s,c){ return s + c.score; }, 0);
+  var totalMax = cats.reduce(function(s,c){ return s + c.max; }, 0);
+
+  var band = null;
+  test.bands.forEach(function(b){ if (total >= b.min && total <= b.max) band = b; });
+  if (!band) band = test.bands[test.bands.length-1];
+
+  // segurança: pergunta(s) marcadas como safety com resposta de alto risco
+  var safety = test.questions.some(function(q, i){ return q.safety && test.questions[i].o[answers[i]][1] >= 2; });
+
+  // ordenação de categorias por percentual
+  var sorted = cats.slice().sort(function(a,b){ return (b.pct||0) - (a.pct||0); });
+
+  // 5 dicas personalizadas (só o que as respostas justificam)
+  var tips = [];
+  sorted.forEach(function(c){ if (tips.length < 4 && c.pct !== null && c.pct >= 50 && TIPS[c.id]) tips.push(TIPS[c.id]); });
+  ["geral1","geral2","geral3","geral4","geral5"].forEach(function(g){ if (tips.length < 5 && tips.indexOf(TIPS[g]) === -1) tips.push(TIPS[g]); });
+  tips = tips.slice(0,5);
+
+  // 3 perguntas para reflexão
+  var refl = [];
+  sorted.forEach(function(c){ if (refl.length < 2 && c.pct !== null && c.pct >= 34 && REFLECT[c.id]) refl.push(REFLECT[c.id]); });
+  ["geral1","geral2"].forEach(function(g){ if (refl.length < 3 && refl.indexOf(REFLECT[g]) === -1) refl.push(REFLECT[g]); });
+  refl = refl.slice(0,3);
+
+  // pontos positivos e aspectos de reflexão
+  var positives = sorted.filter(function(c){ return c.pct !== null && c.pct < 34; })
+    .map(function(c){ return c.name; });
+  var concerns = sorted.filter(function(c){ return c.pct !== null && c.pct >= 50; });
+
+  return { total:total, totalMax:totalMax, band:band, cats:cats, sorted:sorted,
+           safety:safety, tips:tips, refl:refl, positives:positives, concerns:concerns,
+           dateISO:new Date().toISOString() };
+}
+
+function interpLabel(pct){
+  if (pct === null) return "Sem dados";
+  if (pct < 34) return "poucas preocupações relatadas";
+  if (pct < 67) return "alguns aspectos podem merecer conversa e reflexão";
+  return "maior quantidade de preocupações relatadas";
+}
+
+/* ============================================================
+   TELA DE RESULTADO
+   ============================================================ */
+function finishQuiz(){
+  var test = getTest(quiz.testId);
+  var result = computeResult(test, quiz.answers);
+  LAST = { testId:quiz.testId, test:test, result:result, answers:quiz.answers.slice() };
+  renderResult(LAST);
+}
+
+function renderResult(L){
+  var test = L.test, r = L.result;
+  charts.forEach(function(c){ try{ c.destroy(); }catch(e){} }); charts = [];
+
+  var hasData = r.cats.some(function(c){ return c.pct !== null; });
+  var doughnutOK = hasData && r.total > 0;
+
+  var safetyHtml = r.safety ?
+    '<div class="safety"><strong>Sua segurança em primeiro lugar.</strong> Suas respostas indicaram momentos de medo, ameaça ou intimidação. Relacionamentos não devem doer. Priorize sua proteção: procure alguém de confiança e considere apoio profissional (CRP/Disque 100, em situações de risco no Brasil). Não enfrente situações perigosas sozinho(a).</div>' : "";
+
+  var positivesHtml = r.positives.length ?
+    '<div class="res-sec"><h3>Pontos positivos identificados</h3><ul class="plist">' +
+    r.positives.map(function(n){ return '<li>Você relatou poucas preocupações em <strong>' + esc(n) + '</strong> — um ponto forte para manter.</li>'; }).join("") + '</ul></div>' :
+    '<div class="res-sec"><h3>Pontos positivos identificados</h3><p style="font-size:.9rem;color:var(--muted)">Nenhuma categoria se destacou como ponto de equilíbrio neste teste — o que reforça a importância da reflexão a seguir.</p></div>';
+
+  var concernsHtml = r.concerns.length ?
+    '<div class="res-sec"><h3>Aspectos que merecem reflexão</h3><ul class="tick">' +
+    r.concerns.map(function(c){ return '<li><strong>' + esc(c.name) + '</strong> (' + c.score + '/' + c.max + ' · ' + c.pct + '%): ' + interpLabel(c.pct) + '.</li>'; }).join("") + '</ul></div>' : "";
+
+  app.innerHTML = "";
+  var el = document.createElement("div"); el.className = "screen-anim";
+  el.innerHTML =
+  '<section class="section" style="margin-top:14px"><div class="card">' +
+    '<div class="result-hero">' +
+      '<div style="font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--pink);font-weight:800">' + esc(test.title) + '</div>' +
+      '<div class="score-big" style="margin-top:8px">' + r.total + '<span style="font-size:.4em;color:var(--muted)"> / ' + r.totalMax + '</span></div>' +
+      '<div class="band-badge">' + esc(r.band.title) + '</div>' +
+    '</div>' +
+    safetyHtml +
+    '<div class="disclaimer">Este resultado é uma interpretação das suas respostas, gerada no seu navegador. Ele <strong>não é um diagnóstico</strong>, não comprova infidelidade, não calcula probabilidade de traição e não substitui conversa ou acompanhamento profissional. Nenhuma resposta foi enviada a servidores.</div>' +
+    '<p style="font-size:.95rem;color:#e6dfe4">' + esc(r.band.msg) + '</p>' +
+
+    '<div class="res-sec"><h3>Seu panorama do relacionamento</h3>' +
+      '<div class="chart-box"><canvas id="chart-bar" height="260"></canvas>' +
+      '<div class="legend">Escala: percentual = (pontos obtidos ÷ pontuação máxima) × 100. O percentual indica a <strong>intensidade dos sinais relatados</strong> nas respostas — quanto maior, mais preocupações foram relatadas naquela categoria. Não é uma avaliação científica do relacionamento.</div>' +
+      '<div class="chart-actions"><button class="btn btn-ghost btn-sm" id="png-bar">Salvar imagem do gráfico (PNG)</button></div></div>' +
+      (doughnutOK ?
+      '<div class="chart-box"><canvas id="chart-dough" height="240"></canvas>' +
+      '<div class="legend">Distribuição relativa das pontuações registradas entre as categorias deste teste. Não representa probabilidade de traição nem culpa de ninguém.</div>' +
+      '<div class="chart-actions"><button class="btn btn-ghost btn-sm" id="png-dough">Salvar imagem do gráfico (PNG)</button></div></div>'
+      : '<div class="chart-box"><p style="font-size:.88rem;color:var(--muted)">Gráfico de rosca indisponível: sem pontuação registrada para distribuição.</p></div>') +
+    '</div>' +
+
+    '<div class="res-sec"><h3>Interpretação por categoria</h3><ul class="tick">' +
+      r.sorted.map(function(c){
+        return '<li><strong>' + esc(c.name) + '</strong> — ' + (c.pct === null ? "Sem dados" : c.score + '/' + c.max + ' pontos (' + c.pct + '%): ' + interpLabel(c.pct) + '.') + '</li>';
+      }).join("") + '</ul></div>' +
+
+    positivesHtml + concernsHtml +
+
+    '<div class="res-sec"><h3>Cinco dicas práticas para você</h3><ol class="olist">' +
+      r.tips.map(function(t, i){ return '<li><span class="n">' + (i+1) + '</span><span>' + esc(t) + '</span></li>'; }).join("") + '</ol></div>' +
+
+    '<div class="res-sec"><h3>Três perguntas para reflexão pessoal</h3><ol class="olist">' +
+      r.refl.map(function(t, i){ return '<li><span class="n">' + (i+1) + '</span><span>' + esc(t) + '</span></li>'; }).join("") + '</ol></div>' +
+
+    '<div class="res-sec"><h3>Como conversar sobre isso sem acusações</h3><ul class="tick">' +
+      TALK_GUIDE.map(function(t){ return '<li>' + esc(t) + '</li>'; }).join("") + '</ul></div>' +
+
+    '<div class="actions-grid">' +
+      '<button class="btn btn-primary" id="res-redo">Refazer teste</button>' +
+      '<a class="btn btn-ghost" href="#/testes">Fazer outro teste</a>' +
+      '<button class="btn btn-share" id="res-share">Compartilhar resultado</button>' +
+      '<button class="btn btn-ghost" id="res-pdf">Baixar resultado em PDF</button>' +
+      '<a class="btn btn-ghost" href="#/inicio">Voltar ao início</a>' +
+      '<a class="btn btn-whatsapp" target="_blank" rel="noopener" href="' + WA_LINK + '">Falar pelo WhatsApp</a>' +
+    '</div>' +
+  '</div></section>';
+  app.appendChild(el);
+
+  drawCharts(r, hasData, doughnutOK);
+
+  $("res-redo").addEventListener("click", function(){
+    confirmModal("Refazer teste?", "As respostas atuais serão descartadas.", "Refazer", function(){
+      quiz.answers = new Array(test.questions.length).fill(null);
+      quiz.current = 0; quiz.testId = L.testId;
+      renderQuiz(); window.scrollTo({top:0});
+    });
+  });
+
+  $("res-share").addEventListener("click", function(){ shareResult(L); });
+  $("res-pdf").addEventListener("click", function(){ exportPDF(L); });
+  $("png-bar") && $("png-bar").addEventListener("click", function(){ savePNG("chart-bar", "sinais-ocultos-grafico-barras.png"); });
+  $("png-dough") && $("png-dough").addEventListener("click", function(){ savePNG("chart-dough", "sinais-ocultos-grafico-rosca.png"); });
+}
+
+/* ---------- gráficos ---------- */
+var PALETTE = ["#ff5f8f","#a81c2e","#ff8fb0","#7a1220","#e84d7d","#c22b3f","#ff7aa2","#8f1830"];
+
+function drawCharts(r, hasData, doughnutOK){
+  if (typeof Chart === "undefined"){
+    // fallback sem CDN: barras em CSS
+    var box = $("chart-bar").parentElement;
+    $("chart-bar").style.display = "none";
+    var fb = document.createElement("div"); fb.className = "chart-fallback";
+    r.cats.forEach(function(c, i){
+      var row = document.createElement("div");
+      row.innerHTML = '<div style="display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:4px"><span>' + esc(c.name) + '</span><span style="color:var(--muted)">' + (c.pct === null ? "Sem dados" : c.score + "/" + c.max + " · " + c.pct + "%") + '</span></div>' +
+        '<div style="height:12px;background:rgba(255,255,255,.07);border-radius:99px"><div style="height:100%;width:' + (c.pct||0) + '%;border-radius:99px;background:' + PALETTE[i % PALETTE.length] + '"></div></div>';
+      row.style.marginBottom = "14px";
+      fb.appendChild(row);
+    });
+    box.insertBefore(fb, box.firstChild);
+    return;
+  }
+  Chart.defaults.color = "#b8aeb5";
+  Chart.defaults.font.family = "'Segoe UI',system-ui,sans-serif";
+
+  var labels = [], vals = [], maxs = [], colors = [];
+  r.cats.forEach(function(c, i){
+    labels.push(c.name); colors.push(PALETTE[i % PALETTE.length]);
+    vals.push(c.score); maxs.push(c.max);
+  });
+
+  var barCtx = $("chart-bar").getContext("2d");
+  var bar = new Chart(barCtx, {
+    type:"bar",
+    data:{ labels:labels, datasets:[
+      { label:"Pontuação obtida", data:vals, backgroundColor:colors, borderRadius:8, barPercentage:.7 },
+      { label:"Máxima possível", data:maxs, backgroundColor:"rgba(255,255,255,.12)", borderRadius:8, barPercentage:.7 }
+    ]},
+    options:{
+      indexAxis:"y", responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{ position:"bottom", labels:{boxWidth:14, boxHeight:14} },
+        tooltip:{ callbacks:{ label:function(ctx){ return ctx.dataset.label + ": " + ctx.raw + (ctx.datasetIndex === 0 && maxs[ctx.dataIndex] ? " (" + Math.round(ctx.raw/maxs[ctx.dataIndex]*100) + "%)" : ""); } } }
+      },
+      scales:{
+        x:{ beginAtZero:true, grid:{color:"rgba(255,255,255,.06)"} },
+        y:{ grid:{display:false}, ticks:{font:{size:11}} }
+      }
+    }
+  });
+  charts.push(bar);
+
+  if (doughnutOK){
+    var dCtx = $("chart-dough").getContext("2d");
+    var dough = new Chart(dCtx, {
+      type:"doughnut",
+      data:{ labels:labels, datasets:[{ data:vals, backgroundColor:colors, borderColor:"#0a0a0c", borderWidth:3, hoverOffset:8 }]},
+      options:{
+        responsive:true, maintainAspectRatio:false, cutout:"58%",
+        plugins:{
+          legend:{ position:"bottom", labels:{boxWidth:14, boxHeight:14} },
+          tooltip:{ callbacks:{ label:function(ctx){ return " " + ctx.label + ": " + ctx.raw + " pontos (" + Math.round(ctx.raw/r.total*100) + "% da pontuação)"; } } }
+        }
+      }
+    });
+    charts.push(dough);
+  }
+}
+
+/* ---------- compartilhar / exportar ---------- */
+function shareResult(L){
+  var r = L.result;
+  var text = "Meu resultado no Sinais Ocultos — " + L.test.title + ": " + r.total + "/" + r.totalMax +
+             ' pontos ("' + r.band.title + '"). Teste de reflexão, sem diagnóstico. Refaça em: ' + location.href.split("#")[0];
+  if (navigator.share){
+    navigator.share({ title:"Sinais Ocultos — resultado", text:text, url:location.href }).catch(function(){});
+  } else {
+    copyText(text);
+  }
+}
+function copyText(text){
+  function fb(){
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); toast("Resumo copiado!"); }catch(e){ toast("Não foi possível copiar automaticamente."); }
+    document.body.removeChild(ta);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){ toast("Resumo copiado!"); }, fb);
+  } else fb();
+}
+
+function savePNG(canvasId, filename){
+  var cv = $(canvasId);
+  if (!cv || typeof Chart === "undefined"){ toast("Gráfico indisponível para exportação."); return; }
+  var chart = charts.find(function(c){ return c.canvas === cv; });
+  try{
+    var url = chart ? chart.toBase64Image("image/png", 1) : cv.toDataURL("image/png");
+    var a = document.createElement("a");
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    toast("Imagem salva!");
+  }catch(e){ toast("Não foi possível salvar a imagem."); }
+}
+
+function exportPDF(L){
+  if (!window.jspdf || !window.jspdf.jsPDF){ toast("Biblioteca de PDF não carregada (verifique a internet)."); return; }
+  var doc = new window.jspdf.jsPDF({unit:"pt", format:"a4"});
+  var r = L.result, test = L.test;
+  var margin = 48, y = 60, pageW = doc.internal.pageSize.getWidth();
+
+  function line(txt, size, gap, color){
+    doc.setFontSize(size || 11);
+    if (color) doc.setTextColor(color[0], color[1], color[2]); else doc.setTextColor(30,30,30);
+    var lines = doc.splitTextToSize(txt, pageW - margin*2);
+    lines.forEach(function(l){ if (y > 780){ doc.addPage(); y = 60; } doc.text(l, margin, y); y += (gap || 16); });
+  }
+  function section(t){ y += 10; line(t, 13, 18, [168,28,46]); }
+
+  doc.setFont("helvetica","bold");
+  line("Sinais Ocultos — Resultado do Teste", 18, 22, [122,18,32]);
+  doc.setFont("helvetica","normal");
+  line("Teste: " + test.title, 12, 16);
+  line("Data de realização: " + fmtDate(r.dateISO), 10, 16, [110,110,110]);
+  line("Pontuação total: " + r.total + " de " + r.totalMax + " pontos — " + r.band.title, 12, 18);
+  line("Aviso: resultado gerado por teste de autorreflexão. Não é diagnóstico nem prova de infidelidade.", 9, 18, [110,110,110]);
+
+  section("Pontuações por categoria");
+  r.sorted.forEach(function(c){
+    line("• " + c.name + ": " + (c.pct === null ? "Sem dados" : c.score + "/" + c.max + " (" + c.pct + "%) — " + interpLabel(c.pct)), 10, 15);
+  });
+
+  // gráficos como imagem
+  ["chart-bar","chart-dough"].forEach(function(id, k){
+    var cv = $(id); if (!cv) return;
+    var chart = charts.find(function(c){ return c.canvas === cv; });
+    try{
+      var img = chart ? chart.toBase64Image("image/png", 1) : null;
+      if (img){
+        if (y > 560){ doc.addPage(); y = 60; }
+        doc.addImage(img, "PNG", margin, y, pageW - margin*2, 220);
+        y += 236;
+      }
+    }catch(e){}
+  });
+
+  if (y > 620){ doc.addPage(); y = 60; }
+  section("Interpretação e dicas");
+  line(r.band.msg, 10, 15);
+  r.tips.forEach(function(t, i){ line((i+1) + ". " + t, 10, 15); });
+  section("Perguntas para reflexão");
+  r.refl.forEach(function(t, i){ line((i+1) + ". " + t, 10, 15); });
+  y += 8;
+  line("Documento gerado pelo próprio usuário. Nenhum dado pessoal foi incluído automaticamente.", 8, 12, [110,110,110]);
+
+  doc.save("sinais-ocultos-resultado.pdf");
+  toast("PDF gerado!");
+}
+
+/* ---------- boot ---------- */
+router();
+</script>
+</body>
+</html>
